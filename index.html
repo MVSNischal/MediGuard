@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b5f58">
+<title>MediGuard AI — Medication Safety Demo</title>
+<style>
+:root{--ink:#172b2a;--muted:#627573;--line:#dce7e4;--bg:#f4f8f7;--card:#fff;--teal:#0b756b;--teal2:#dff4ef;--amber:#fff0cc;--amberink:#795400;--red:#fde6e4;--redink:#922e2a;--blue:#e8f0ff;--shadow:0 10px 30px rgba(19,61,55,.07)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{max-width:1160px;margin:auto;padding:20px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:12px}.logo{display:grid;place-items:center;width:46px;height:46px;background:var(--teal);color:white;border-radius:14px;font-size:25px;font-weight:800}.brand h1{font-size:22px;line-height:1.1;margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:12px}.pill{border-radius:999px;background:var(--amber);color:var(--amberink);font-size:12px;font-weight:800;padding:7px 11px;white-space:nowrap}.hero{background:linear-gradient(120deg,#0a5b55,#12887a);color:white;padding:28px;border-radius:24px;display:grid;grid-template-columns:1.4fr .6fr;gap:20px;box-shadow:var(--shadow)}.hero h2{font-size:clamp(25px,4vw,36px);line-height:1.12;margin:0 0 12px}.hero p{margin:0;color:#e1f6f1;max-width:650px}.hero-stat{background:#ffffff18;border:1px solid #ffffff30;border-radius:18px;padding:18px;align-self:center}.hero-stat strong{display:block;font-size:16px;margin-bottom:6px}.hero-stat span{font-size:13px;color:#e1f6f1}.notice{margin:16px 0;background:#fff7e3;border:1px solid #f0d99d;color:#694b00;border-radius:14px;padding:13px 15px;font-size:13px}.layout{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:var(--shadow);min-width:0}.card h3{margin:0 0 5px;font-size:19px}.sub{margin:0 0 18px;color:var(--muted);font-size:13px}.section-title{font-weight:800;font-size:13px;color:#31514d;text-transform:uppercase;letter-spacing:.07em;margin:20px 0 10px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:flex;flex-direction:column;gap:6px;min-width:0}.field.full{grid-column:1/-1}label{font-weight:700;font-size:13px}input,select,textarea{width:100%;border:1px solid #cbdad6;border-radius:10px;padding:11px 12px;background:white;color:var(--ink);outline:none}input:focus,select:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px #0b756b1c}textarea{min-height:75px;resize:vertical}.checkrow{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--muted);margin:14px 0}.checkrow input{width:auto;margin-top:4px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{border:0;border-radius:11px;padding:11px 15px;font-weight:800}.primary{background:var(--teal);color:white}.secondary{background:#edf4f2;color:#244743;border:1px solid var(--line)}.danger{background:#fff0ee;color:var(--redink);border:1px solid #f1cbc8}.btn:focus-visible{outline:3px solid #72c9bd;outline-offset:2px}.med-row{display:grid;grid-template-columns:1.4fr .7fr .9fr auto;gap:8px;align-items:end;margin:9px 0}.med-row .field{gap:4px}.med-row label{font-size:11px}.remove{border:1px solid var(--line);background:white;border-radius:9px;padding:10px;color:var(--redink)}.samplebox{border:1px dashed #a9c9c2;background:#f5fbf9;border-radius:13px;padding:12px;margin-top:12px}.samplebox strong{font-size:13px}.samplebox p{margin:4px 0 0;color:var(--muted);font-size:12px}.report-wrap{margin-top:18px}.report-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}.status{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:10px;background:var(--amber);color:var(--amberink);font-size:12px;font-weight:800}.report-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.metric{background:#f5f9f8;border:1px solid var(--line);padding:13px;border-radius:13px}.metric strong{display:block;font-size:23px}.metric span{font-size:12px;color:var(--muted)}.finding{border:1px solid var(--line);border-radius:13px;padding:13px;margin:9px 0}.finding h4{margin:0 0 4px;font-size:14px}.finding p{margin:0;color:var(--muted);font-size:13px}.finding.amber{background:#fffaf0;border-color:#f0dfa9}.finding.red{background:#fff6f5;border-color:#f0c9c6}.finding.green{background:#f2faf6;border-color:#cce8d9}.source{background:#f2f6ff;border:1px solid #d7e2fa;padding:14px;border-radius:13px;font-size:13px;margin-top:14px}.source strong{display:block;margin-bottom:4px}.hidden{display:none!important}.footer{color:var(--muted);font-size:12px;text-align:center;padding:24px 10px}.small{font-size:12px;color:var(--muted)}.report-actions{display:flex;gap:8px;flex-wrap:wrap}@media(max-width:760px){.app{padding:13px}.hero{grid-template-columns:1fr;padding:22px}.layout{grid-template-columns:1fr}.card{padding:17px}.topbar{align-items:flex-start}.pill{white-space:normal;text-align:center}.med-row{grid-template-columns:1fr 1fr}.med-row .field:first-child{grid-column:1/-1}.report-grid{grid-template-columns:1fr 1fr}.report-grid .metric:last-child{grid-column:1/-1}}@media(max-width:420px){.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.brand h1{font-size:19px}.report-grid{grid-template-columns:1fr}.report-grid .metric:last-child{grid-column:auto}}
+@media print{body{background:white}.app{max-width:none;padding:0}.topbar,.hero,.layout,.notice,.footer,.report-actions,.no-print{display:none!important}.report-wrap{display:block!important;margin:0}.card{box-shadow:none;border:0;padding:0}.report-wrap .card{display:block!important}.finding{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand"><div class="logo" aria-hidden="true">+</div><div><h1>MediGuard AI</h1><p>Medication understanding · Safety demo</p></div></div>
+    <span class="pill">DEMO ONLY · NOT FOR CLINICAL USE</span>
+  </header>
+  <section class="hero">
+    <div><h2>Understand the medicines.<br>Ask better questions.</h2><p>A privacy-conscious demonstration of how a medication review could organise patient-reported details and surface information that deserves professional review.</p></div>
+    <div class="hero-stat"><strong>Safety before certainty</strong><span>This prototype does not decide whether a prescription is safe, recommend medicines, or advise dosage changes.</span></div>
+  </section>
+  <div class="notice"><strong>Important:</strong> This is a synthetic-data demonstration, not a medical device or a clinical checker. Do not enter real patient information or use the report to make treatment decisions. Never stop or change prescribed medicines based on this demo.</div>
+
+  <div class="layout">
+    <section class="card">
+      <h3>1. Patient profile</h3><p class="sub">Use a synthetic example. Fields are kept in this browser page only.</p>
+      <div class="fields">
+        <div class="field"><label for="patientName">Demo patient name</label><input id="patientName" value="Sample Patient A" autocomplete="off"></div>
+        <div class="field"><label for="age">Age group</label><select id="age"><option>Adult (18–64)</option><option>Older adult (65+)</option><option>Under 18</option><option>Not provided</option></select></div>
+        <div class="field"><label for="conditions">Relevant conditions (reported)</label><input id="conditions" value="Type 2 diabetes (sample)" autocomplete="off"></div>
+        <div class="field"><label for="allergies">Known allergies</label><input id="allergies" placeholder="e.g., sample: none reported" autocomplete="off"></div>
+        <div class="field full"><label for="diet">Usual meals / diet notes</label><textarea id="diet" placeholder="Example: breakfast, lunch, evening snack, dinner; include only general sample details">Sample: regular meals; diet details not clinically assessed</textarea></div>
+      </div>
+      <div class="section-title">2. Regular medicines</div>
+      <p class="small">Enter only fictional examples. Strength is recorded as entered; the app does not judge whether it is appropriate.</p>
+      <div id="regularMeds"></div>
+      <button class="btn secondary" id="addRegular" type="button">+ Add regular medicine</button>
+      <div class="section-title">3. Newly prescribed medicines</div>
+      <div id="newMeds"></div>
+      <button class="btn secondary" id="addNew" type="button">+ Add prescribed medicine</button>
+      <div class="checkrow"><input type="checkbox" id="consent"><label for="consent">I understand this is a synthetic-data demo only and its output is not medical advice.</label></div>
+      <div class="actions"><button class="btn primary" id="generate" type="button">Generate demo report</button><button class="btn secondary" id="loadSample" type="button">Load sample case</button><button class="btn secondary" id="clear" type="button">Clear form</button></div>
+      <div id="formError" class="finding red hidden" role="alert"></div>
+    </section>
+
+    <section class="card">
+      <h3>How this prototype checks</h3><p class="sub">A transparent demonstration, not an AI diagnosis or a validated interaction engine.</p>
+      <div class="finding"><h4>Medicine reference lookup</h4><p>Recognises selected medicine names listed in your uploaded two-page pharmaceutical guide and displays the guide's example strengths and stated uses.</p></div>
+      <div class="finding"><h4>Completeness checks</h4><p>Highlights blank medicine names or missing details so the information can be confirmed by a clinician or pharmacist.</p></div>
+      <div class="finding"><h4>Duplicate-name check</h4><p>Flags repeated entered medicine names for human review. It does not prove that ingredients, doses, or formulations are equivalent.</p></div>
+      <div class="finding amber"><h4>Not included</h4><p>No validated drug–drug or drug–food interaction database, dose appropriateness engine, kidney/liver function checks, pregnancy checks, allergy verification, or personalised clinical rules.</p></div>
+      <div class="source"><strong>Reference source: Top Prescribed Pharmaceuticals Guide (uploaded PDF)</strong>It lists selected active ingredients, example available strengths and primary uses. It states that actual dosages must be individualised by licensed healthcare professionals. It is not sufficient to assess an individual's prescription safety.</div>
+      <div class="samplebox"><strong>Development principle</strong><p>The language model should explain only verified findings. It must not invent interaction alerts or turn missing information into a claim that a medicine is safe.</p></div>
+    </section>
+  </div>
+
+  <section class="report-wrap hidden" id="reportWrap">
+    <div class="card">
+      <div class="report-head"><div><h3>Medication review — demo report</h3><p class="sub" id="reportMeta"></p></div><div class="report-actions"><button class="btn secondary" id="printReport" type="button">Print / Save PDF</button><button class="btn secondary" id="copyReport" type="button">Copy report text</button></div></div>
+      <div class="status">⚠ Professional review required — demo cannot determine safety</div>
+      <div class="report-grid"><div class="metric"><strong id="countRegular">0</strong><span>Regular medicines entered</span></div><div class="metric"><strong id="countNew">0</strong><span>New medicines entered</span></div><div class="metric"><strong id="countKnown">0</strong><span>Names found in PDF guide</span></div></div>
+      <div class="notice"><strong>Interpretation:</strong> This report is not an approval or rejection of a prescription. The prototype has not assessed clinical safety. Ask a qualified doctor or pharmacist to review the complete medicine list and patient context.</div>
+      <h3>Findings</h3><div id="findings"></div>
+      <h3 style="margin-top:22px">Medicine reference matches</h3><div id="matches"></div>
+      <h3 style="margin-top:22px">Questions to take to a healthcare professional</h3>
+      <div class="finding"><h4>Bring the full medicine list</h4><p>Confirm each medicine's exact name, active ingredient, strength, formulation, schedule, reason for use, and who prescribed it.</p></div>
+      <div class="finding"><h4>Ask about relevant interactions and monitoring</h4><p>Ask whether the combination and any food-related precautions have been checked for your individual health circumstances.</p></div>
+      <div class="finding"><h4>Do not make treatment changes based on this report</h4><p>Do not stop, start, or change a prescribed medicine without advice from the appropriate healthcare professional.</p></div>
+      <p class="small" id="reportFooter"></p>
+    </div>
+  </section>
+  <footer class="footer">MediGuard AI prototype · No account, server, or database connection · Form data stays in page memory and is not saved by this app. Browser or device behaviour may differ.</footer>
+</div>
+<script>
+"use strict";
+const GUIDE = [
+ {names:["atorvastatin","lipitor"],ingredient:"Atorvastatin calcium",strengths:"10, 20, 40, 80 mg",use:"Cholesterol reduction; cardiovascular risk reduction"},
+ {names:["rosuvastatin","crestor"],ingredient:"Rosuvastatin calcium",strengths:"5, 10, 20, 40 mg",use:"Cholesterol and cardiovascular risk reduction"},
+ {names:["amlodipine","norvasc"],ingredient:"Amlodipine besylate",strengths:"2.5, 5, 10 mg",use:"Hypertension and angina"},
+ {names:["telmisartan","micardis"],ingredient:"Telmisartan",strengths:"20, 40, 80 mg",use:"Hypertension"},
+ {names:["metoprolol","lopressor","toprol-xl"],ingredient:"Metoprolol tartrate / succinate",strengths:"25, 50, 100, 200 mg",use:"Hypertension, angina and selected heart conditions"},
+ {names:["losartan","cozaar"],ingredient:"Losartan potassium",strengths:"25, 50, 100 mg",use:"Hypertension; diabetic nephropathy in type 2 diabetes"},
+ {names:["metformin","glucophage"],ingredient:"Metformin hydrochloride",strengths:"500, 850, 1000 mg; XR 500–1000 mg",use:"Type 2 diabetes management"},
+ {names:["levothyroxine","synthroid"],ingredient:"Levothyroxine sodium",strengths:"25, 50, 88, 100–200 mcg",use:"Hypothyroidism replacement therapy"},
+ {names:["glimepiride","amaryl"],ingredient:"Glimepiride",strengths:"1, 2, 4 mg",use:"Blood glucose control in type 2 diabetes"},
+ {names:["sitagliptin","januvia"],ingredient:"Sitagliptin phosphate",strengths:"25, 50, 100 mg",use:"Type 2 diabetes glycaemic control"},
+ {names:["pantoprazole","protonix"],ingredient:"Pantoprazole sodium",strengths:"20, 40 mg",use:"GERD and erosive esophagitis"},
+ {names:["omeprazole","prilosec"],ingredient:"Omeprazole magnesium",strengths:"10, 20, 40 mg",use:"GERD and gastric ulcers"},
+ {names:["famotidine","pepcid"],ingredient:"Famotidine",strengths:"20, 40 mg",use:"Heartburn and acid indigestion"},
+ {names:["salbutamol","albuterol","ventolin","proair"],ingredient:"Salbutamol sulfate",strengths:"100 mcg/actuation; 2 mg/5 mL syrup",use:"Bronchodilator for bronchospasm"},
+ {names:["montelukast","singulair"],ingredient:"Montelukast sodium",strengths:"4, 5, 10 mg",use:"Asthma maintenance and allergic rhinitis"},
+ {names:["fluticasone/salmeterol","fluticasone salmeterol","advair","seretide"],ingredient:"Fluticasone propionate + salmeterol",strengths:"100/50, 250/50, 500/50 mcg",use:"Asthma/COPD maintenance"},
+ {names:["paracetamol","acetaminophen","tylenol"],ingredient:"Paracetamol / acetaminophen",strengths:"325, 500, 650 mg",use:"Pain and fever"},
+ {names:["ibuprofen","advil","motrin"],ingredient:"Ibuprofen",strengths:"200, 400, 600, 800 mg",use:"Pain and inflammatory conditions"},
+ {names:["diclofenac","voltaren"],ingredient:"Diclofenac sodium / potassium",strengths:"25, 50, 75 mg SR",use:"Inflammatory joint disorders and musculoskeletal pain"},
+ {names:["amoxicillin + clavulanate","amoxicillin clavulanate","augmentin"],ingredient:"Amoxicillin + potassium clavulanate",strengths:"500/125, 875/125 mg; 1000 mg ER (as listed)",use:"Selected respiratory, ENT and urinary infections"},
+ {names:["azithromycin","zith"],ingredient:"Azithromycin dihydrate",strengths:"250, 500 mg",use:"Antibiotic; the guide's indication text is incomplete"}
+];
+const norm=s=>(s||"").toLowerCase().trim().replace(/\s+/g," ");
+function matchGuide(name){const n=norm(name);return GUIDE.find(g=>g.names.some(x=>n===norm(x)||n.includes(norm(x))||norm(x).includes(n)&&n.length>4));}
+function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+let rowId=0;
+function addMedicine(containerId, data={}){const host=document.getElementById(containerId);const id=++rowId;const row=document.createElement("div");row.className="med-row";row.dataset.id=id;row.innerHTML=`
+ <div class="field"><label for="medname${id}">Medicine name</label><input id="medname${id}" class="medname" placeholder="e.g., metformin (sample)" value="${escapeHtml(data.name||"")}" autocomplete="off"></div>
+ <div class="field"><label for="medstrength${id}">Strength</label><input id="medstrength${id}" class="medstrength" placeholder="e.g., 500 mg" value="${escapeHtml(data.strength||"")}" autocomplete="off"></div>
+ <div class="field"><label for="medform${id}">Form / notes</label><input id="medform${id}" class="medform" placeholder="e.g., tablet (sample)" value="${escapeHtml(data.form||"")}" autocomplete="off"></div>
+ <button class="remove" type="button" aria-label="Remove medicine row">×</button>`;
+ row.querySelector(".remove").addEventListener("click",()=>row.remove());host.appendChild(row);}
+function getMeds(id){return [...document.querySelectorAll(`#${id} .med-row`)].map(r=>({name:r.querySelector(".medname").value.trim(),strength:r.querySelector(".medstrength").value.trim(),form:r.querySelector(".medform").value.trim()})).filter(m=>m.name||m.strength||m.form);}
+function error(msg){const el=document.getElementById("formError");el.textContent=msg;el.classList.remove("hidden");}
+function clearError(){document.getElementById("formError").classList.add("hidden");}
+function loadSample(){document.getElementById("patientName").value="Sample Patient A";document.getElementById("age").value="Adult (18–64)";document.getElementById("conditions").value="Type 2 diabetes (sample)";document.getElementById("allergies").value="Sample: none reported";document.getElementById("diet").value="Sample: regular meals; diet details not clinically assessed";document.getElementById("regularMeds").innerHTML="";document.getElementById("newMeds").innerHTML="";addMedicine("regularMeds",{name:"metformin",strength:"500 mg",form:"tablet (sample)"});addMedicine("regularMeds",{name:"amlodipine",strength:"5 mg",form:"tablet (sample)"});addMedicine("newMeds",{name:"atorvastatin",strength:"10 mg",form:"tablet (sample)"});document.getElementById("consent").checked=false;clearError();document.getElementById("reportWrap").classList.add("hidden");}
+function generate(){clearError();if(!document.getElementById("consent").checked){error("Please confirm that you understand this is a demo only before generating a report.");return;}
+ const regular=getMeds("regularMeds"),fresh=getMeds("newMeds"),all=[...regular.map(m=>({...m,group:"Regular"})),...fresh.map(m=>({...m,group:"New prescription"}))];
+ if(!all.length){error("Add at least one fictional medicine to generate the demonstration report.");return;}
+ const findings=[],seen=new Map();
+ all.forEach(m=>{if(!m.name){findings.push({kind:"amber",title:"Medicine name missing",text:`A ${m.group.toLowerCase()} medicine row has no name. Confirm the exact name with a healthcare professional.`});return;}
+  if(!m.strength||!m.form){findings.push({kind:"amber",title:`Details incomplete: ${m.name}`,text:`${!m.strength?"Strength is missing. ":""}${!m.form?"Formulation or notes are missing. ":""}This demo cannot assess the medicine without complete, verified details.`});}
+  const k=norm(m.name);if(seen.has(k)){findings.push({kind:"red",title:"Repeated entered medicine name",text:`“${m.name}” appears more than once (${seen.get(k)} and ${m.group}). This is a data-review flag only; it does not establish a duplicate ingredient or a clinical interaction.`});}else seen.set(k,m.group);
+  const g=matchGuide(m.name);if(!g)findings.push({kind:"amber",title:`Reference match not found: ${m.name}`,text:"This name was not matched to the selected entries from the uploaded guide. This does not mean the medicine is unsafe or invalid; confirm the generic name and spelling."});
+ });
+ findings.unshift({kind:"amber",title:"Clinical interaction checks were not performed",text:"This prototype has no validated drug–drug or drug–food interaction database. It cannot determine whether the full combination is safe or appropriate for this person."});
+ findings.push({kind:"amber",title:"Diet and patient-specific suitability were not assessed",text:"Diet notes are collected for a future workflow only. This demo does not calculate nutrient intake or assess kidney/liver function, allergies, age-related risks, or individual dose suitability."});
+ const known=all.filter(m=>m.name&&matchGuide(m.name)).length;
+ document.getElementById("reportMeta").textContent=`Synthetic case: ${document.getElementById("patientName").value.trim()||"Unnamed sample"} · Generated ${new Date().toLocaleString()}`;
+ document.getElementById("countRegular").textContent=regular.filter(m=>m.name).length;document.getElementById("countNew").textContent=fresh.filter(m=>m.name).length;document.getElementById("countKnown").textContent=known;
+ document.getElementById("findings").innerHTML=findings.map(f=>`<div class="finding ${f.kind}"><h4>${escapeHtml(f.title)}</h4><p>${escapeHtml(f.text)}</p></div>`).join("");
+ document.getElementById("matches").innerHTML=all.map(m=>{const g=m.name?matchGuide(m.name):null;return `<div class="finding"><h4>${escapeHtml(m.name||"Unnamed medicine")} <span class="small">· ${escapeHtml(m.group)}</span></h4><p><strong>Entered:</strong> ${escapeHtml(m.strength||"Strength not entered")} · ${escapeHtml(m.form||"Form not entered")}</p>${g?`<p style="margin-top:5px"><strong>Guide match:</strong> ${escapeHtml(g.ingredient)}. <strong>Guide-listed strengths:</strong> ${escapeHtml(g.strengths)}. <strong>Primary use as stated:</strong> ${escapeHtml(g.use)}.</p>`:`<p style="margin-top:5px">No match in the selected entries from the uploaded guide.</p>`}<p style="margin-top:5px">A reference match is not an endorsement or an assessment of patient-specific safety.</p></div>`}).join("");
+ document.getElementById("reportFooter").textContent="Patient-reported details are unverified. Reference data comes from the user-provided Top Prescribed Pharmaceuticals Guide PDF; entries and example strengths may be incomplete or require independent verification. No external clinical database was queried.";
+ document.getElementById("reportWrap").classList.remove("hidden");document.getElementById("reportWrap").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function reportText(){const wrap=document.getElementById("reportWrap");return "MediGuard AI — Medication review demo report\n"+document.getElementById("reportMeta").textContent+"\nSTATUS: Professional review required — demo cannot determine safety.\n"+[...wrap.querySelectorAll(".finding")].map(f=>f.innerText.replace(/\n/g,": ")).join("\n")+"\n\nThis is a synthetic-data demonstration, not medical advice. No validated interaction or personalised clinical safety checks were performed. Do not change treatment based on this report.";}
+document.getElementById("addRegular").addEventListener("click",()=>addMedicine("regularMeds"));document.getElementById("addNew").addEventListener("click",()=>addMedicine("newMeds"));document.getElementById("generate").addEventListener("click",generate);document.getElementById("loadSample").addEventListener("click",loadSample);
+document.getElementById("clear").addEventListener("click",()=>{document.getElementById("regularMeds").innerHTML="";document.getElementById("newMeds").innerHTML="";["patientName","conditions","allergies","diet"].forEach(id=>document.getElementById(id).value="");document.getElementById("consent").checked=false;document.getElementById("reportWrap").classList.add("hidden");clearError();});
+document.getElementById("printReport").addEventListener("click",()=>window.print());document.getElementById("copyReport").addEventListener("click",async()=>{const text=reportText();try{await navigator.clipboard.writeText(text);document.getElementById("copyReport").textContent="Copied";setTimeout(()=>document.getElementById("copyReport").textContent="Copy report text",1500);}catch(e){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();document.getElementById("copyReport").textContent="Copied";}});
+loadSample();
+</script>
+</body>
+</html>
